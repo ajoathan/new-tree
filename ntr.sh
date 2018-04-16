@@ -28,7 +28,7 @@ for bind in $BINDS; do
 	BIND="$BIND -b $bind:$HME/`basename $bind`"
 done
 
-ROOT="$HOME/.ntr/$ROOT"
+ROOT="$HOME/.ntr/roots/$ROOT"
 if [[ ! -d "$ROOT" ]]; then
 	fakechroot fakeroot debootstrap "$SUITE" "$ROOT" "$MIRROR" &&
 	rm -rf "$ROOT/proc" "$ROOT/sys" "$ROOT/dev"
