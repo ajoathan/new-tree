@@ -25,7 +25,9 @@ done
 
 BINDS="$BINDS $ROOT"
 for bind in $BINDS; do
-	BIND="$BIND -b $bind:$HME/`basename $bind`"
+	if [[ -e $bind ]]; then
+		BIND="$BIND -b $bind:$HME/`basename $bind`"
+	fi
 done
 
 ROOT="$HOME/.ntr/roots/$ROOT"
