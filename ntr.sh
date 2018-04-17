@@ -34,6 +34,7 @@ if [[ ! -d "$ROOT" ]]; then
 	rm -rf "$ROOT/proc" "$ROOT/sys" "$ROOT/dev"
 fi &&
 
+cp /etc/resolv.conf "$ROOT/etc/resolv.conf"
 env -i DISPLAY=$DISPLAY HOME="$HME" PATH="$PTH" TERM=$TERM \
 	proot -0 -w "$HME" -r "$ROOT" -b /proc -b /sys -b /dev \
 	$BIND /bin/bash
