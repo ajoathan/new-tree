@@ -3,9 +3,9 @@ HME="/root"
 BINDS=""
 PTH=".:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
 
-SUITE="stretch"
+SUITE="xenial"
 ROOT="$SUITE"
-MIRROR="http://localhost:3142/ftp.br.debian.org/debian/"
+MIRROR="http://localhost:3142/br.archive.ubuntu.com/ubuntu/"
 
 while [ "$1" != "" ]; do
 	if [[ "$1" == "--mirror" || "$1" == "-m" ]]; then
@@ -37,6 +37,6 @@ if [[ ! -d "$ROOT" ]]; then
 fi &&
 
 cp /etc/resolv.conf "$ROOT/etc/resolv.conf" &&
-env -i DISPLAY=$DISPLAY HOME="$HME" PATH="$PTH" TERM=$TERM \
+env -i PROOT_NO_SECCOMP=1 DISPLAY=$DISPLAY HOME="$HME" PATH="$PTH" TERM=$TERM \
 	proot -0 -w "$HME" -r "$ROOT" -b /proc -b /sys -b /dev \
 	$BIND /bin/bash
