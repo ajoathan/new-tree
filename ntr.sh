@@ -32,7 +32,8 @@ done
 
 ROOT="$HOME/.ntr/roots/$ROOT"
 if [[ ! -d "$ROOT" ]]; then
-	fakechroot fakeroot debootstrap "$SUITE" "$ROOT" "$MIRROR" &&
+	fakechroot fakeroot debootstrap --variant=minbase \
+		"$SUITE" "$ROOT" "$MIRROR" &&
 	rm -rf "$ROOT/proc" "$ROOT/sys" "$ROOT/dev"
 fi &&
 
