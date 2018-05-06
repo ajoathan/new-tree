@@ -3,7 +3,7 @@ HME="/root"
 BINDS=""
 PTH=".:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
 
-SUITE="stretch"
+SUITE="$(lsb_release -sc)"
 ROOT="$SUITE"
 MIRROR="http://localhost:3142/ftp.br.debian.org/debian/"
 
