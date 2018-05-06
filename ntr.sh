@@ -30,7 +30,7 @@ for bind in $BINDS; do
 	fi
 done
 
-ROOT="$HOME/.ntr/roots/$ROOT"
+ROOT="$HOME/.ntr/jails/$ROOT"
 if [[ ! -d "$ROOT" ]]; then
 	fakechroot fakeroot debootstrap --variant=minbase \
 		"$SUITE" "$ROOT" "$MIRROR" &&
