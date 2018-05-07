@@ -5,7 +5,6 @@ PTH=".:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
 
 SUITE="$(lsb_release -sc)"
 ROOT="$SUITE"
-MIRROR="http://localhost:3142/ftp.br.debian.org/debian/"
 
 while [ "$1" != "" ]; do
 	if [[ "$1" == "--mirror" || "$1" == "-m" ]]; then
