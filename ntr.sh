@@ -5,6 +5,11 @@ PTH=".:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
 SUITE="$(lsb_release -sc)"
 ROOT="$SUITE"
 
+function bootstrap() {
+	fakechroot fakeroot debootstrap --variant=minbase $@ &&
+	rm -rf "$2/proc" "$2/sys" "$2/dev"
+}
+
 while [ "$1" != "" ]; do
 	if [[ "$1" == "--mirror" || "$1" == "-m" ]]; then
 		MIRROR="$2"
@@ -36,9 +41,7 @@ done
 
 ROOT="$HOME/.ntr/jails/$ROOT"
 if [[ ! -d "$ROOT" ]]; then
-	fakechroot fakeroot debootstrap --variant=minbase \
-		"$SUITE" "$ROOT" "$MIRROR" &&
-	rm -rf "$ROOT/proc" "$ROOT/sys" "$ROOT/dev"
+	bootstrap "$SUITE" "$ROOT" "$MIRROR"
 fi &&
 
 cp /etc/resolv.conf "$ROOT/etc/resolv.conf" &&
