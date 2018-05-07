@@ -1,6 +1,5 @@
 #!/bin/bash
 HME="/root"
-BINDS=""
 PTH=".:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
 
 SUITE="$(lsb_release -sc)"
@@ -17,6 +16,12 @@ while [ "$1" != "" ]; do
 		BINDS="$BINDS $2"
 	else
 		ROOT="$1"
+		shift
+		if [[ "$1" == "" ]]; then
+			CMD="/bin/bash"
+		else
+			CMD="$@"
+		fi
 		break
 	fi
 	shift 2
@@ -38,5 +43,4 @@ fi &&
 
 cp /etc/resolv.conf "$ROOT/etc/resolv.conf" &&
 env -i DISPLAY=$DISPLAY HOME="$HME" PATH="$PTH" TERM=$TERM \
-	proot -0 -w "$HME" -r "$ROOT" -b /proc -b /sys -b /dev \
-	$BIND /bin/bash
+	proot -0 -w "$HME" -r "$ROOT" -b /proc -b /sys -b /dev $BIND $CMD
