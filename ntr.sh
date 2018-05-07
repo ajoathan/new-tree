@@ -6,7 +6,9 @@ SUITE="$(lsb_release -sc)"
 ROOT="$SUITE"
 
 function bootstrap() {
-	fakechroot fakeroot debootstrap --variant=minbase $@ &&
+	http_proxy="$PROXY" fakechroot fakeroot \
+		debootstrap --variant=minbase $@ &&
+	echo "Acquire::http::Proxy \"$PROXY\";" >> "$ROOT/etc/apt/apt.conf" &&
 	rm -rf "$2/proc" "$2/sys" "$2/dev"
 }
 
@@ -19,6 +21,8 @@ while [ "$1" != "" ]; do
 		HME="$2"
 	elif [[ "$1" == "--bind" || "$1" == "-b" ]]; then
 		BINDS="$BINDS $2"
+	elif [[ "$1" == "--proxy" || "$1" == "-p" ]]; then
+		PROXY="$2"
 	else
 		ROOT="$1"
 		shift
