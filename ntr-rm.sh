@@ -1,8 +1,13 @@
 #!/bin/bash
 
-ROOT="$HOME/.ntr/roots/$1"
+if [ "$1" == "" ]; then
+	echo "Especifique a jail!"
+	exit 1
+fi
+
+ROOT="$HOME/.ntr/jails/$1"
 if [ ! -d "$ROOT" ]; then
-	echo "Root nao encontrada!"
+	echo "Jail nao encontrada!"
 	exit 1
 fi
 

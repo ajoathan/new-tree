@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ls --color "$HOME/.ntr/roots"
+ls --color "$HOME/.ntr/jails"
