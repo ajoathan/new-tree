@@ -23,6 +23,8 @@ while [ "$1" != "" ]; do
 		BINDS="$BINDS $2"
 	elif [[ "$1" == "--proxy" || "$1" == "-p" ]]; then
 		PROXY="$2"
+	elif [[ "$1" == "--enviroment" || "$1" == "-e" ]]; then
+		ENV="$ENV $2"
 	else
 		ROOT="$1"
 		shift
@@ -49,5 +51,5 @@ if [[ ! -d "$ROOT" ]]; then
 fi &&
 
 cp /etc/resolv.conf "$ROOT/etc/resolv.conf" &&
-env -i DISPLAY=$DISPLAY HOME="$HME" PATH="$PTH" TERM=$TERM \
+env -i DISPLAY=$DISPLAY HOME="$HME" PATH="$PTH" TERM=$TERM $ENV \
 	proot -0 -w "$HME" -r "$ROOT" -b /proc -b /sys -b /dev $BIND $CMD
